@@ -12,9 +12,13 @@
 		AD948D132098D8C800B07D42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD948D112098D8C800B07D42 /* Main.storyboard */; };
 		AD948D152098D8C900B07D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD948D142098D8C900B07D42 /* Assets.xcassets */; };
 		AD948D182098D8C900B07D42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD948D162098D8C900B07D42 /* LaunchScreen.storyboard */; };
+		C8C64031717187177FC50442 /* Pods_NeoCryptoKey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D33D097B938CE3E3EB0463B /* Pods_NeoCryptoKey.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		158434A1522E5806C4E73DA5 /* Pods-NeoCryptoKey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoCryptoKey.release.xcconfig"; path = "Pods/Target Support Files/Pods-NeoCryptoKey/Pods-NeoCryptoKey.release.xcconfig"; sourceTree = "<group>"; };
+		7D33D097B938CE3E3EB0463B /* Pods_NeoCryptoKey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NeoCryptoKey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9605BC5EA7385F40B94B29CB /* Pods-NeoCryptoKey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NeoCryptoKey.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NeoCryptoKey/Pods-NeoCryptoKey.debug.xcconfig"; sourceTree = "<group>"; };
 		AD948D0A2098D8C800B07D42 /* NeoCryptoKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeoCryptoKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD948D0D2098D8C800B07D42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD948D0F2098D8C800B07D42 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8C64031717187177FC50442 /* Pods_NeoCryptoKey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		98F42C7ADFE6AB9B70E389FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7D33D097B938CE3E3EB0463B /* Pods_NeoCryptoKey.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AD948D012098D8C800B07D42 = {
 			isa = PBXGroup;
 			children = (
 				AD948D0C2098D8C800B07D42 /* NeoCryptoKey */,
 				AD948D0B2098D8C800B07D42 /* Products */,
+				B234B0AD32BA0409085A0516 /* Pods */,
+				98F42C7ADFE6AB9B70E389FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = NeoCryptoKey;
 			sourceTree = "<group>";
 		};
+		B234B0AD32BA0409085A0516 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9605BC5EA7385F40B94B29CB /* Pods-NeoCryptoKey.debug.xcconfig */,
+				158434A1522E5806C4E73DA5 /* Pods-NeoCryptoKey.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD948D1C2098D8C900B07D42 /* Build configuration list for PBXNativeTarget "NeoCryptoKey" */;
 			buildPhases = (
+				8ACA6D1AE687662C03E37859 /* [CP] Check Pods Manifest.lock */,
 				AD948D062098D8C800B07D42 /* Sources */,
 				AD948D072098D8C800B07D42 /* Frameworks */,
 				AD948D082098D8C800B07D42 /* Resources */,
+				E9D24E62B0EA574778189924 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8ACA6D1AE687662C03E37859 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NeoCryptoKey-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9D24E62B0EA574778189924 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NeoCryptoKey/Pods-NeoCryptoKey-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCharts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NeoCryptoKey/Pods-NeoCryptoKey-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AD948D062098D8C800B07D42 /* Sources */ = {
@@ -278,15 +347,13 @@
 		};
 		AD948D1D2098D8C900B07D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9605BC5EA7385F40B94B29CB /* Pods-NeoCryptoKey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7E3A6Y64YC;
 				INFOPLIST_FILE = NeoCryptoKey/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pahwa.NeoCryptoKey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -296,15 +363,13 @@
 		};
 		AD948D1E2098D8C900B07D42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 158434A1522E5806C4E73DA5 /* Pods-NeoCryptoKey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7E3A6Y64YC;
 				INFOPLIST_FILE = NeoCryptoKey/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pahwa.NeoCryptoKey;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
