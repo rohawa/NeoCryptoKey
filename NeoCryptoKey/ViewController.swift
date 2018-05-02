@@ -14,48 +14,52 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var outputString: UILabel!
     @IBOutlet weak var coinsBought: UITextField!
+    @IBAction func calculate(_ sender: UIButton) {
+        printString()
+    }
     // ALL VARIABLE DECLARATIONS
+    // loadData Stores Here
     var oldPrice: Double = 0.0
-    
+    // Lists for Picker View
     let monthArray = [1,3,6,12,24,36]
     let coinArray = ["BTC","LTC","XRP","ETH", "ZEC"]
     var stringMonthArray: [String] = [String]()
-    var currentMonth: Int = 0
-    var currentCoin: String = ""
-    
+    // apiURL declaration
     var apiUrl = ""
+    // date declaration
     var date = NSDate()
-    
+    // date constants
     var timestamp = UInt64(0)
     var monthTime = UInt64(2629743)
-   
-    var timeStampFixed = ""
-    var currentMonthStr = ""
+    var nowStr = ""
+    var oldStr = ""
+    
     //UI PICKER STUFF
     var pickerData: [[String]] = [[String]]()
     var currencyChosen = ""
     var monthsChosen = 0
     
-    var amountBought = 0.0
     var currentPrice = 0.0
-    var oldPricen = 0.0
+    var olderPrice = 0.0
+    var gainVal = 0.0
+    let myGroup = DispatchGroup()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        currentCoin = "BTC"
-        currentMonth = 3
-        print("Calling loadData()")
-        getVals()
-        loadData(currentMonthStr,currentCoin)
         // MORE PICKER STUFF
+        
+        timestamp = UInt64(floor(date.timeIntervalSince1970)) - UInt64(86400)
+        nowStr = String(timestamp)
+        
         self.picker.delegate = self
         self.picker.dataSource = self
+        
         for x in monthArray{
             stringMonthArray.append("\(x) Months")
         }
-        
         pickerData = [coinArray,stringMonthArray]
+        print("Finished ViewDidLoad")
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,6 +68,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     //PICKER VIEW DELEGATES
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        //print("Finished numberOfComponents")
         return 2
     }
     
@@ -79,25 +84,45 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // The parameter named row and component represents what was selected.
         if component == 0 {
             currencyChosen = coinArray[row]
+            print(currencyChosen)
         }
         else {
-            monthsChosen = row
+            monthsChosen = monthArray[row]
+            print(monthsChosen)
         }
-        printString()
+        print("Finished pickerView3")
     }
     
     func printString()
     {
-        
-        outputString.text = "You would have made \(oldPrice) if you had invested \(oldPrice) in \(currencyChosen) \(monthArray[monthsChosen]) Months ago"
+        print("Start Print")
+        myGroup.enter()
+        loadData(nowStr, currencyChosen)
+        print("Completed First Load")
+        currentPrice = oldPrice
+        myGroup.leave()
+        //myGroup.enter()
+        getVals()
+        loadData(oldStr, currencyChosen)
+        print("Completed Second Load")
+        olderPrice = oldPrice
+        //myGroup.leave()
+        let amountBought :Double? = Double(coinsBought.text!)
+        print(amountBought!)
+        print(currentPrice)
+        print(olderPrice)
+        gainVal = (amountBought!*currentPrice) - (amountBought!*olderPrice)
+        outputString.text = "You would have made \(gainVal) USD if you had invested \((amountBought!*olderPrice)) USD in \(currencyChosen) \(monthsChosen) Months ago"
+        print("Completed String")
     }
     
     // RESETS VARIBALES ACCORDING TO MONTH
     func getVals(){
         timestamp = UInt64(floor(date.timeIntervalSince1970))
-        currentMonthStr = String((timestamp-(monthTime*UInt64(currentMonth))))
-        print(timestamp)
-        print(currentMonthStr)
+        oldStr = String((timestamp-(monthTime*UInt64(monthsChosen))))
+        //print(timestamp)
+        //print(currentMonthStr)
+        print("Completed getVals")
     }
     
     //USES ALAMO AND SWIFTY TO PULL DATA FROM cryptocompare API
@@ -122,7 +147,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                         print(type(of: swiftArr![0]))
                         if let swiftDict = swiftArr![0] as? NSDictionary {
                             if let close = swiftDict.value(forKey: "close") as? NSNumber {
-                                print("Close price pre-guard: \(close) of type \(type(of: close))")
                                 self.oldPrice = fabs(close.doubleValue)
                                 print("Close price: \(self.oldPrice)")
                             }
